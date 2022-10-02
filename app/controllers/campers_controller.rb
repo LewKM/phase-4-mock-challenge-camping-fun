@@ -9,7 +9,7 @@ class CampersController < ApplicationController
 
     def show
         camper = find_camper
-        render json: camper, serializer: CamperWithActivitiesSerializer
+        render json: camper, serializer: CamperActivitiesSerializer
     end
 
     def create
@@ -32,6 +32,6 @@ class CampersController < ApplicationController
     end
 
     def render_unprocessable_entity_response(invalid)
-        render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
 end
