@@ -1,5 +1,6 @@
 class SignupsController < ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, :with => :render_unprocessable_entity_response
+rescue_from ActiveRecord::RecordNotFound, with: :render_unprocessable_entity_response
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
         signups = Signup.all
@@ -10,6 +11,8 @@ class SignupsController < ApplicationController
         signup = find_signup
         render json: signup
     end
+
+    # Signups POST /signups with invalid data returns the error messages in a hash with the key errors
 
     def create
         signup = Signup.create!(signup_params)
